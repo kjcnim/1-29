@@ -31,6 +31,7 @@ for ii = 1:10
     xlabel('Distance (m)')
     ylabel('Angle (deg.)')
     
+    %imagesc 순서대로, 이미지 저장
     t = squeeze(left_turn_Data(ii, :, :).^1.5)
     letter_left = 'left_%d.jpg';
     str_left = sprintf(letter_left,ii);

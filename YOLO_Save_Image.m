@@ -28,8 +28,8 @@ for ii = 1:10
     
     imagesc(squeeze(left_turn_Data(ii, :, :).^1.5));   
 
+    % imagesc 사진 저장
     t = squeeze(left_turn_Data(ii, :, :).^1.5)
-  
     imwrite( ind2rgb(im2uint8(mat2gray(t)), parula(256)), 'hight00.jpg')
  
     
