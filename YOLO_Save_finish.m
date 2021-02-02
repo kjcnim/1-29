@@ -22,7 +22,7 @@ load('Test_Data.mat')
    figure(1)
 for ii = 1:10
     %%좌회전
-   %subplot(m,n,p)는 현재 Figure를 mxn 그리드로 나누고, p로 지정된 위치에 좌표축을 만듭니다.
+ 
     subplot(1,2,1)
     imagesc(squeeze(left_turn_Data(ii, :, :).^1.5));   
             
