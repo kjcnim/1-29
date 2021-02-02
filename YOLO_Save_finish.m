@@ -24,9 +24,9 @@ load('Test_Data.mat')
     R = int16.empty(0,4)
     R_A = int16.empty(0,4)
     
-    data_number = 2; %사용할 레이다 이미지 개수 
+    data_count = 2; %사용할 레이다 이미지 개수 
    
-for ii = 1:data_number
+for ii = 1:data_count
     %%좌회전
  
     subplot(1,2,1)
@@ -75,12 +75,12 @@ for ii = 1:data_number
 end
 
 %%셀 저장
-Left_imageFilename = cell(data_number,1)
-Right_imageFilename = cell(data_number,1)
-LEFT = cell(data_number,1)
-RIGHT = cell(data_number,1)
+Left_imageFilename = cell(data_count,1)
+Right_imageFilename = cell(data_countr,1)
+LEFT = cell(data_count,1)
+RIGHT = cell(data_count,1)
 
-for ii = 1:data_number
+for ii = 1:data_count
     Left_imageFilename{ii,1} = sprintf('left\\left_%d.jpg',ii)
     Right_imageFilename{ii,1} = sprintf('\right\\right_%d.jpg',ii)
     LEFT{ii,1} = L_A(ii, :)
