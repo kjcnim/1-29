@@ -1,4 +1,8 @@
-%%% 이 코드는 점을 찍어 사각형을 그릴때, 직사각형을 그리도록 2개의 점만 선택하면 직사각형을 만드는 코드이다.
+%%% 이 코드는 입력받은 레이다 데이터를 이미지로 바꾼뒤, 이를 라벨링 시킬때, 
+%%% 라벨링 구역(네모 박스)의 왼쪽 위, 오른쪽 아래. 이렇게 2개의 점을 찍으면
+%%% 자동적으로 [X축, Y축, 너비, 높이] 데이터 정보가 입력되고
+%%% 자동적으로 레이다 데이터 이미지가 저장되며(이때, 폴더 미리 설정)
+%%% 자동적으로 data 값들이 하나의 1x1 struct에 입력되어 YOLO알고리즘에 그대로 대입시킬 수 있게 만들었다.
 
 clear;
 close all;
@@ -19,8 +23,10 @@ load('Test_Data.mat')
     
     R = int16.empty(0,4)
     R_A = int16.empty(0,4)
-   figure(1)
-for ii = 1:10
+    
+    data_number = 2; %사용할 레이다 이미지 개수 
+   
+for ii = 1:data_number
     %%좌회전
  
     subplot(1,2,1)
@@ -69,12 +75,12 @@ for ii = 1:10
 end
 
 %%셀 저장
-Left_imageFilename = cell(10,1)
-Right_imageFilename = cell(10,1)
-LEFT = cell(10,1)
-RIGHT = cell(10,1)
+Left_imageFilename = cell(data_number,1)
+Right_imageFilename = cell(data_number,1)
+LEFT = cell(data_number,1)
+RIGHT = cell(data_number,1)
 
-for ii = 1:10
+for ii = 1:data_number
     Left_imageFilename{ii,1} = sprintf('left\\left_%d.jpg',ii)
     Right_imageFilename{ii,1} = sprintf('\right\\right_%d.jpg',ii)
     LEFT{ii,1} = L_A(ii, :)
@@ -84,6 +90,11 @@ end
 T_left = table(Left_imageFilename,LEFT);
 T_right = table(Right_imageFilename,RIGHT);
 T = table(LEFT,RIGHT);
+
+%구조체 struct
+%data_left = struct('turn_left',{T_left})
+%data_right = struct('turn_right',{T_right})
+data_all = struct('turn_left',{T_left},'turn_right',{T_right} )
 
 save('savefile.mat', 'T')
 save('leftfile.mat','T_left')
