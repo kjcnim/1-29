@@ -24,7 +24,7 @@ load('Test_Data.mat')
     R = int16.empty(0,4)
     R_A = int16.empty(0,4)
     
-    data_count = 2; %사용할 레이다 이미지 개수 
+    data_count = 10; %사용할 레이다 이미지 개수 
    
 for ii = 1:data_count
     %%좌회전
@@ -76,7 +76,7 @@ end
 
 %%셀 저장
 Left_imageFilename = cell(data_count,1)
-Right_imageFilename = cell(data_countr,1)
+Right_imageFilename = cell(data_count,1)
 LEFT = cell(data_count,1)
 RIGHT = cell(data_count,1)
 
@@ -99,3 +99,4 @@ data_all = struct('turn_left',{T_left},'turn_right',{T_right} )
 save('savefile.mat', 'T')
 save('leftfile.mat','T_left')
 save('rightfile.mat','T_right')
+save('Turning Inform.mat','data_all')
