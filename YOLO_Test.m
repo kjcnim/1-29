@@ -12,6 +12,10 @@ leftDataset(1:4,:) % 그 중에 처음 4행까지 보여준다
 % Add the fullpath to the local vehicle data folder
 leftDataset.Left_imageFilename = fullfile(pwd,leftDataset.Left_imageFilename) % leftdataset에서 이미지파일경로를 절대경로로 바꿈
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%naming = data.data_all.turn_left.Properties.VariableNames{2}
+%annotation = sprintf('%s',naming)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 데이터셋을 훈련 세트, 검증 세트, 테스트 세트로 분할한다.
 % 데이터의 60%를 훈련용으로, 데이터의 10%를 검증용으로, 나머지를 훈련된 검출기의 테스트용으로 선택한다.
 rng(0)
@@ -123,14 +127,17 @@ options = trainingOptions('sgdm', ...
     [detector,info] = trainYOLOv2ObjectDetector(preprocessedTrainingData,lgraph,options);
  end 
  
-I = imread(testDataTbl.Left_imageFilename{1});
+I = imread(testDataTbl.Left_imageFilename{2});
 I = imresize(I,inputSize(1:2));
 figure
 imshow(I)
 [bboxes,scores] = detect(detector,I)
 
+naming = detector.ModelName
+annotation = sprintf('%s = %f',naming, scores);
+
 if ~isempty(bboxes)
-    I = insertObjectAnnotation(I,'rectangle',bboxes,scores);
+    I = insertObjectAnnotation(I,'rectangle',bboxes,annotation);
     figure
     imshow(I)
 end
